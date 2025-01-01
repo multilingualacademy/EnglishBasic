@@ -274,13 +274,41 @@ document.addEventListener('DOMContentLoaded', () => {
 const audioSelector = document.getElementById('audioSelector');
 const audioPlayer = document.getElementById('audioPlayer');
 const speedControl = document.getElementById('speedControl');
-
-// --- Referencias ---
 const playPauseBtn = document.getElementById('playPauseBtn');
 const progressBar = document.getElementById('progress-bar');
 const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
+const volumeSlider = document.getElementById('volumeSlider');
+const rewindBtn = document.getElementById('rewindBtn');
+const forwardBtn = document.getElementById('forwardBtn');
+
+// Control de volumen
+volumeSlider.addEventListener('input', () => {
+    audioPlayer.volume = volumeSlider.value;
+});
+
+// Botones de salto
+rewindBtn.addEventListener('click', () => {
+    audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 15);
+});
+
+forwardBtn.addEventListener('click', () => {
+    audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 15);
+});
+
+// Mantener el valor del volumen al cambiar de audio
+audioSelector.addEventListener('change', () => {
+    const selectedAudio = audioSelector.value;
+    if (selectedAudio) {
+        audioPlayer.src = selectedAudio;
+        audioPlayer.volume = volumeSlider.value; // Mantener el volumen actual
+        audioPlayer.play();
+        playPauseBtn.textContent = 'Pause';
+    } else {
+        alert('Por favor selecciona un audio.');
+    }
+});
 
 // --- Funciones de manejo de audio ---
 

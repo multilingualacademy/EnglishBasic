@@ -451,3 +451,113 @@ button:disabled {
     font-size: 12px;
   }
   
+
+  /* Agregar estos estilos al archivo style.css existente */
+
+.audio-controls {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 450px; /* Aumentado para acomodar nuevos controles */
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 70px;
+}
+
+#volumeSlider {
+    width: 60px;
+    height: 5px;
+    -webkit-appearance: none;
+    background: #ddd;
+    border-radius: 2px;
+    outline: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: rgb(155, 122, 122);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: rgb(155, 122, 122);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.skip-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.skip-button {
+    padding: 5px 8px;
+    font-size: 10px;
+    background: rgb(155, 122, 122);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.skip-button:hover {
+    background: #555;
+}
+
+/* Actualizar los media queries existentes */
+@media screen and (max-width: 768px) {
+    .audio-controls {
+        width: calc(100% - 40px);
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .volume-control {
+        width: 100%;
+        justify-content: center;
+        margin: 5px 0;
+    }
+
+    #volumeSlider {
+        width: 100px;
+    }
+
+    .skip-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .audio-controls {
+        padding: 5px;
+        gap: 3px;
+    }
+
+    .skip-button {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+
+    #volumeSlider {
+        width: 80px;
+    }
+}
