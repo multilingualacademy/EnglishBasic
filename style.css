@@ -138,7 +138,7 @@ button:disabled {
     gap: 5px;
     align-items: center;
     flex-wrap: wrap;
-    width: 230px;
+    width: 500px;
 }
 
 #audioSelector {
@@ -385,3 +385,69 @@ button:disabled {
         height: 70vh;
     }
 }
+
+
+/* --- Controles de Audio --- */
+.audio-controls {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 300px;
+  }
+  
+  #audioSelector {
+    height: 23px;
+    width: 70px;
+  }
+  
+  .audio-controls select {
+    padding: 5px;
+    font-size: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .audio-controls button {
+    padding: 5px;
+    font-size: 10px;
+    background: #333;
+    color: rgb(155, 122, 122);
+  }
+  
+  /* --- Estilos para el Reproductor de Audio --- */
+  #audioPlayer {
+    width: 10px;
+    height: 1px;
+    visibility: hidden;
+  }
+    
+  #audioPlayer.hidden {
+    display: none;
+  }
+  
+  /* --- Barra de Progreso --- */
+  .progress-bar {
+    flex-grow: 1;
+    height: 10px;
+    background-color: #ddd;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: rgb(155, 122, 122);
+    width: 10%;
+  }
+  
+  /* --- Estilos de Tiempo --- */
+  #current-time, #duration {
+    font-size: 12px;
+  }
+  

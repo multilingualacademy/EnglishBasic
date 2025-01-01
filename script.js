@@ -240,15 +240,6 @@ const urlsAudios = [
 const VALID_CREDENTIALS = [
     { username: "1", password: "1" },
     { username: "user1", password: "pass1" },
-    { username: "user2", password: "pass2" },
-    { username: "user3", password: "pass3" },
-    { username: "user4", password: "pass4" },
-    { username: "user5", password: "pass5" },
-    { username: "user6", password: "pass6" },
-    { username: "user7", password: "pass7" },
-    { username: "user8", password: "pass8" },
-    { username: "user9", password: "pass9" },
-    { username: "user10", password: "pass10" },
 ];
 
 // --- Elementos del DOM ---
@@ -261,12 +252,12 @@ const loginError = document.getElementById('loginError');
 loginBtn.addEventListener('click', () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
+    
     // Verifica si las credenciales coinciden con alguna de las válidas
     const validCredential = VALID_CREDENTIALS.find(
         (cred) => cred.username === username && cred.password === password
     );
-
+    
     if (validCredential) {
         loginContainer.classList.add('hidden');
         contentContainer.classList.remove('hidden');
@@ -281,16 +272,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Referencias para el reproductor de audio ---
 const audioSelector = document.getElementById('audioSelector');
-const playAudioBtn = document.getElementById('playAudioBtn');
 const audioPlayer = document.getElementById('audioPlayer');
 const speedControl = document.getElementById('speedControl');
 
-// --- Referencias adicionales para el audio ---
-const pauseAudioBtn = document.getElementById('pauseAudioBtn');
-const stopAudioBtn = document.getElementById('stopAudioBtn');
+// --- Referencias ---
+const playPauseBtn = document.getElementById('playPauseBtn');
+const progressBar = document.getElementById('progress-bar');
+const progress = document.getElementById('progress');
+const currentTimeEl = document.getElementById('current-time');
+const durationEl = document.getElementById('duration');
 
 // --- Funciones de manejo de audio ---
-pauseAudioBtn.addEventListener('click', () => {
+
+// Reproducir/Pausar
+playPauseBtn.addEventListener('click', () => {
+  if (audioPlayer.paused) {
+    audioPlayer.play();
+    playPauseBtn.textContent = 'Pause';
+  } else {
+    audioPlayer.pause();
+    playPauseBtn.textContent = 'Play';
+  }
+});
+
+// Actualizar barra de progreso y tiempo
+audioPlayer.addEventListener('timeupdate', () => {
+  const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  progress.style.width = percent + '%';
+  
+  currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+});
+
+// Obtener duración total
+audioPlayer.addEventListener('loadedmetadata', () => {
+  durationEl.textContent = formatTime(audioPlayer.duration);
+});
+
+// Hacer clic en la barra de progreso para saltar a una parte del audio
+progressBar.addEventListener('click', (e) => {
+  const clickPosition = e.offsetX / progressBar.offsetWidth;
+  audioPlayer.currentTime = clickPosition * audioPlayer.duration;
+});
+
+// Control de velocidad
+speedControl.addEventListener('change', function () {
+  const speed = parseFloat(speedControl.value);
+  audioPlayer.playbackRate = speed;
+});
+
+// --- Cargar las opciones de audio ---
+urlsAudios.forEach((audioUrl, index) => {
+  const option = document.createElement('option');
+  option.value = audioUrl;
+  option.textContent = `Lesson ${index + 1}`;
+  audioSelector.appendChild(option);
+});
+
+// Reproducir el audio seleccionado
+audioSelector.addEventListener('change', () => {
+  const selectedAudio = audioSelector.value;
+  if (selectedAudio) {
+    audioPlayer.src = selectedAudio;
+    audioPlayer.play();
+    playPauseBtn.textContent = 'Pause';
+  } else {
+    alert('Por favor selecciona un audio.');
+  }
+});
+
+// --- Función para formatear el tiempo ---
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+
+
+// --- Referencias adicionales para el audio ---
+//const playAudioBtn = document.getElementById('playAudioBtn');
+//const pauseAudioBtn = document.getElementById('pauseAudioBtn');
+//const stopAudioBtn = document.getElementById('stopAudioBtn');
+
+// --- Funciones de manejo de audio ---
+/*pauseAudioBtn.addEventListener('click', () => {
     if (!audioPlayer.paused) {
         audioPlayer.pause();
     }
@@ -311,7 +376,7 @@ playAudioBtn.addEventListener('click', () => {
         alert('Por favor selecciona un audio.');
     }
 });
-
+*/
 speedControl.addEventListener('change', function () {
     const speed = parseFloat(speedControl.value);
     audioPlayer.playbackRate = speed;
@@ -517,5 +582,3 @@ document.addEventListener('keydown', (e) => {
 // --- Inicialización ---
 loadImages();
 updatePageDisplay();
-
-

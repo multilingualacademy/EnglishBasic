@@ -26,7 +26,7 @@
             style="text-align: center; border: none; border-bottom: 2px solid #000; outline: none;">
         <button id="goToPageBtn" onclick="goToPage()">Go</button>
     </div>
-    
+
     <!-- Contenedor de login -->
     <div id="login-container" class="login-container">
         <div class="login-box">
@@ -40,24 +40,42 @@
         </div>
     </div>
 
-    <!-- Controles de audio -->
+    <!-- Contenedor de controles de audio -->
     <div class="audio-controls">
+        <!-- Selector de audios -->
         <select id="audioSelector">
             <!-- Opciones se llenarán dinámicamente -->
         </select>
-        <button id="playAudioBtn"><i class="fas fa-play"></i></button>
-        <button id="stopAudioBtn"><i class="fas fa-stop"></i></button>
-        <button id="pauseAudioBtn"><i class="fas fa-pause"></i></button>
+
+        <!-- Botón Play/Pause -->
+        <button id="playPauseBtn">Play</button>
+
+        <!-- Barra de Progreso -->
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Tiempo actual y duración -->
+        <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+
         <!-- Control de velocidad -->
         <select id="speedControl">
             <option value="0.25">0.25x</option>
             <option value="0.5">0.5x</option>
+            <option value="0.75">0.75x</option>
+            <option value="0.85">0.85x</option>
+            <option value="0.95">0.95x</option>
             <option value="1" selected>1x</option>
+            <option value="1.25">1.25x</option>
             <option value="1.5">1.5x</option>
+            <option value="1.75">1.75x</option>
             <option value="2">2x</option>
         </select>
+
+        <!-- Reproductor de audio (oculto) -->
         <audio id="audioPlayer" controls controlsList="nodownload" class="hidden"></audio>
     </div>
+
 
     <!-- Controles de zoom -->
     <div class="zoom-controls">
@@ -67,10 +85,10 @@
         <input id="zoomSlider" type="range" min="0.5" max="2" step="0.1" value="1">
     </div>
 
-    
+
 
     <script src="script.js" defer></script>
-    
+
 </body>
 
 </html>
